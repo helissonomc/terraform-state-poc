@@ -1,0 +1,26 @@
+set dotenv-load := true
+
+
+terraform-init:
+    terraform init
+
+terraform-plan:
+    terraform plan
+
+terraform-apply:
+    terraform apply
+
+terraform-destroy:
+    terraform destroy
+
+terraform-format:
+	terraform fmt
+
+terraform-validate:
+	terraform validate
+
+terraform-output:
+	terraform output
+
+get-caller:
+    aws sts get-caller-identity
