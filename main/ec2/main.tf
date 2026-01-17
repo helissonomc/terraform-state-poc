@@ -1,5 +1,5 @@
 resource "aws_instance" "web" {
-  count         = 2
+  count         = 1
 
   ami           = var.ami_id
   instance_type = var.instance_type
@@ -16,8 +16,9 @@ resource "aws_instance" "web" {
               sudo systemctl start httpd
               sudo systemctl enable httpd
               echo "<h1>Hello World from $(hostname -f)</h1>" | sudo tee /var/www/html/index.html > /dev/null
-              sudo yum install -y amazon-linux-extras
-              sudo amazon-linux-extras install -y postgresql10
+              sudo amazon-linux-extras enable postgresql14
+              sudo yum clean metadata
+              sudo yum install -y postgresql
               EOF
 
   tags = {

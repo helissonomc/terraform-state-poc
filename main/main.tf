@@ -26,21 +26,21 @@ module "security_groups" {
   vpc_cidr_block = module.vpc.vpc_cidr_block
 }
 
-# module "ec2" {
-#   source            = "./ec2"
-#   ami_id            = "ami-0c02fb55956c7d316" # Example Amazon Linux AMI
-#   instance_type     = "t2.micro"
-#   public_subnet_id  = module.subnets.public_subnets[0].id
-#   security_group_id = module.security_groups.intra_vpc_sg_id
-# }
+module "ec2" {
+  source            = "./ec2"
+  ami_id            = "ami-0c02fb55956c7d316" # Example Amazon Linux AMI
+  instance_type     = "t3.micro"
+  public_subnet_id  = module.subnets.public_subnets[0].id
+  security_group_id = module.security_groups.intra_vpc_sg_id
+}
 
-# module "rds" {
-#   source                = "./rds"
-#   private_subnet_ids    = module.subnets.private_subnets[*].id
-#   vpc_security_group_id = module.security_groups.rds_sg_id
-#   db_name               = "mydatabase"
-#   username              = "postgis"
-#   password              = "password123"
-# }
+module "rds" {
+  source                = "./rds"
+  private_subnet_ids    = module.subnets.private_subnets[*].id
+  vpc_security_group_id = module.security_groups.rds_sg_id
+  db_name               = var.db_name
+  username              = var.db_username
+  password              = var.db_password
+}
 
 

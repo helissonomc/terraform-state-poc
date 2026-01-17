@@ -22,5 +22,8 @@ terraform-validate:
 terraform-output:
 	terraform output
 
+terraform-console:
+	terraform console
+
 get-caller:
     aws sts get-caller-identity
