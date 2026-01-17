@@ -7,8 +7,8 @@ terraform-init:
 terraform-plan:
     terraform plan
 
-terraform-apply:
-    terraform apply
+terraform-apply *FLAGS:
+    terraform apply {{ FLAGS }}
 
 terraform-destroy:
     terraform destroy
