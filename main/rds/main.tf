@@ -22,6 +22,21 @@ resource "aws_db_parameter_group" "postgres_logical_replication" {
   }
 }
 
+resource "aws_db_parameter_group" "postgres_logical_replication18" {
+  name   = "postgres-logical-replication18"
+  family = "postgres18"
+
+  parameter {
+    name  = "rds.logical_replication" # This is a static parameter that requires a reboot, blue / green deployment requires it to be set here
+    value = "1"
+    apply_method = "pending-reboot"
+  }
+
+  tags = {
+    Name = "postgres-logical-replication"
+  }
+}
+
 resource "aws_db_instance" "rds" {
   allocated_storage      = var.allocated_storage
   engine                 = var.engine
@@ -35,9 +50,9 @@ resource "aws_db_instance" "rds" {
   vpc_security_group_ids = [var.vpc_security_group_id]
   skip_final_snapshot    = var.skip_final_snapshot
   allow_major_version_upgrade = true
-  parameter_group_name        = aws_db_parameter_group.postgres_logical_replication.name
+  parameter_group_name        = aws_db_parameter_group.postgres_logical_replication18.name
   backup_retention_period = 1
-  backup_window          = "05:00-06:00"
+  backup_window          = "09:00-10:00"
   apply_immediately           = true  # Required for static parameter changes
 
   blue_green_update {
