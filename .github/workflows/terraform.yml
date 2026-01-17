@@ -47,6 +47,9 @@ jobs:
 
       - name: Terraform Plan
         run: just terraform-plan
+        env:
+          TF_VAR_db_username: ${{ secrets.DB_USERNAME }}
+          TF_VAR_db_password: ${{ secrets.DB_PASSWORD }}
 
   terraform-apply:
     name: Terraform Apply
@@ -81,3 +84,7 @@ jobs:
 
       - name: Terraform Apply
         run: just terraform-apply -auto-approve
+        env:
+          TF_VAR_db_username: ${{ secrets.TF_VAR_DB_USERNAME }}
+          TF_VAR_db_password: ${{ secrets.TF_VAR_DB_PASSWORD }}
+          TF_VAR_db_name: ${{ secrets.TF_VAR_DB_NAME }}
