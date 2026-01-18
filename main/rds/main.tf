@@ -7,20 +7,6 @@ resource "aws_db_subnet_group" "db_subnet_group" {
   }
 }
 
-resource "aws_db_parameter_group" "postgres_logical_replication" {
-  name   = "postgres-logical-replication"
-  family = "postgres16"
-
-  parameter {
-    name  = "rds.logical_replication" # This is a static parameter that requires a reboot, blue / green deployment requires it to be set here
-    value = "1"
-    apply_method = "pending-reboot"
-  }
-
-  tags = {
-    Name = "postgres-logical-replication"
-  }
-}
 
 resource "aws_db_parameter_group" "postgres_logical_replication18" {
   name   = "postgres-logical-replication18"
